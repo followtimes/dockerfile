@@ -1,0 +1,10 @@
+## 更新kerbors票据
+1 */8 * * * kinit -R
+
+## 统计buffalo项目中的磁盘使用空间和备份成功率
+11 4 * * * cd /home/work/buffalo/buffalo/scripts && if [ -d '/home/work/buffalo/env'  ] ; then source '/home/work/buffalo/env/bin/activate' ; fi && python generate_statistic.py  &>/home/work/buffalo/log/generate_statistic.log &
+11 3 * * *  cd /home/work/buffalo/buffalo && if [ -d '/home/work/buffalo/env'  ] ; then source '/home/work/buffalo/env/bin/activate' ; fi && python delete.py &>/home/work/buffalo/log/expired_delete.log &
+
+
+##检查备份是否按照计划正常执行
+0 10 * * * cd /home/work/buffalo/buffalo/scripts &&  if [ -d '/home/work/buffalo/env'  ] ; then source '/home/work/buffalo/env/bin/activate' ; fi && python check_task.py &>/home/work/buffalo/log/check_task.log &
