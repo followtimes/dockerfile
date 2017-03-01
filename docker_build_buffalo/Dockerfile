@@ -68,11 +68,6 @@ ADD crontabfile /tmp/crontabfile
 WORKDIR /tmp
 RUN crontab crontabfile /etc/crontab
 
-
-EXPOSE 5801
-
-WORKDIR /home/work/buffalo
-
 #install supervisord
 RUN pip install supervisor
 #add supervisord.conf 
@@ -89,8 +84,9 @@ ADD requires.txt /usr/lib/python2.6/site-packages/supervisor-3.3.1-py2.6.egg-inf
 #install which cmd
 RUN yum install -y which
 
-#ENTRYPOINT ["gunicorn", "-c", "gunicorn.conf", "app:app", "-t", "6000"]
-#CMD ["--error-logfile", "/home/work/buffalo/log/app.log", "--log-level", "info"]
+EXPOSE 5801
+WORKDIR /home/work/buffalo
 
 #ENTRYPOINT ['supervisord']
-#CMD ["-c", "/etc/supervisord.conf"]
+#entrypoint will add /bin/sh -c ,so use the cmd
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
