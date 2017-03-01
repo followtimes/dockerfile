@@ -82,15 +82,8 @@ ADD supervisord.conf /etc/
 RUN rm -f /etc/sysconfig/network
 ADD network /etc/sysconfig/network
 
-#change supervisord require.text
-RUN rm /usr/lib/python2.6/site-packages/supervisor-3.3.1-py2.6.egg-info/requires.txt
-ADD requires.txt /usr/lib/python2.6/site-packages/supervisor-3.3.1-py2.6.egg-info/requires.txt
-
-#install which cmd
-RUN yum install -y which
-
 #ENTRYPOINT ["gunicorn", "-c", "gunicorn.conf", "app:app", "-t", "6000"]
 #CMD ["--error-logfile", "/home/work/buffalo/log/app.log", "--log-level", "info"]
 
-#ENTRYPOINT ['supervisord']
+#ENTRYPOINT ['echo $PATH']
 #CMD ["-c", "/etc/supervisord.conf"]

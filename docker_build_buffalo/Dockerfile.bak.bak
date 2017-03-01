@@ -1,0 +1,17 @@
+#build a image for buffalo web server
+
+#add supervisord to start buffalo and postfix at the sametime
+FROM followtimes/buffalo
+MAINTAINER followtimes <zhuhenghui@xiaomi.com>
+
+#install supervisord
+RUN pip install supervisor
+#add supervisord.conf 
+ADD supervisord.conf /etc/
+
+#add network conf to make sure that postfix can run
+RUN rm -f /etc/sysconfig/network
+ADD network /etc/sysconfig/network
+
+ENTRYPOINT ['echo $PATH']
+#CMD ["-c", "/etc/supervisord.conf"]

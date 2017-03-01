@@ -1,0 +1,2 @@
+[iterparse]
+cElementTree >= 1.0.2
